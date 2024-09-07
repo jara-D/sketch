@@ -1,7 +1,5 @@
 <script lang="ts">
-	import type { LayoutData } from './$types';
-
-	export const data: LayoutData = {};
+	
 </script>
 
 <main>

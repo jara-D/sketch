@@ -30,15 +30,21 @@
 		}
 	});
 
+	export function clear() {
+		drawingSave = [];
+		drawPoints = [];
+		ctx?.clearRect(0, 0, canvas.width, canvas.height);
+	}
+
 	function resizeCanvas() {
 		if (canvas) {
 			canvas.width = window.innerWidth;
 			canvas.height = window.innerHeight;
+			load();
 		}
 	}
 	// save to local storage
 	function save() {
-		console.log('drawingSave:', drawingSave);
 		localStorage.setItem('drawingSave', JSON.stringify(drawingSave));
 	}
 	// load from local storage
@@ -62,7 +68,6 @@
 	function addTodrawPoints(event: MouseEvent) {
 		let x = event.pageX;
 		let y = event.pageY;
-		console.log('x:', x, 'y:', y);
 		drawPoints.push({ x, y });
 		draw(drawPoints);
 	}
@@ -73,9 +78,6 @@
 		ctx.lineWidth = 5;
 		ctx.beginPath();
 		ctx.moveTo(points[0].x, points[0].y);
-		// points.forEach((point) => {
-		// 	ctx!.lineTo(point.x, point.y);
-		// });
 		for (let i = 1; i < points.length; i++) {
 			let prevPoint = points[i - 1];
 			let currentPoint = points[i];
@@ -86,7 +88,6 @@
 			ctx.quadraticCurveTo(prevPoint.x, prevPoint.y, controlPoint.x, controlPoint.y);
 		}
 		ctx.stroke();
-		console.log('drawpoints:', drawPoints);
 	}
 </script>
 
